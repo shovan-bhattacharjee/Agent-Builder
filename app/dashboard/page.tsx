@@ -1,7 +1,13 @@
+import AiAgentCreateTab from "./_components/AiAgentCreateTab";
+import CreateAgentSection from "./_components/CreateAgentSection";
+
 const page = () => {
   return (
-    <div>Dashboard Page</div>
-  )
-}
+    <div>
+      <CreateAgentSection />
+      <AiAgentCreateTab />
+    </div>
+  );
+};
 
-export default page
+export default page;
