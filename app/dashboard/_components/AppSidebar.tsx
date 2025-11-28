@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -14,61 +15,76 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { UserDetailContext } from "@/context/UserDetailContext";
 import {
   Bot,
   Database,
+  Gem,
   LayoutDashboard,
   User2Icon,
   WalletCards,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useContext } from "react";
 
 const MenuItems = [
-    {
-      title: "Dashboard",
-      icon: LayoutDashboard,
-      href: "/dashboard",
-    },
-    {
-      title: "AI Agents",
-      icon: Bot,
-      href: "#",
-    },
-    {
-      title: "Data",
-      icon: Database,
-      href: "#",
-    },
-    {
-      title: "Pricing",
-      icon: WalletCards,
-      href: "#",
-    },
-    {
-      title: "Profile",
-      icon: User2Icon,
-      href: "#",
-    },
-  ];
+  {
+    title: "Dashboard",
+    icon: LayoutDashboard,
+    href: "/dashboard",
+  },
+  {
+    title: "AI Agents",
+    icon: Bot,
+    href: "#",
+  },
+  {
+    title: "Data",
+    icon: Database,
+    href: "#",
+  },
+  {
+    title: "Pricing",
+    icon: WalletCards,
+    href: "#",
+  },
+  {
+    title: "Profile",
+    icon: User2Icon,
+    href: "#",
+  },
+];
 
 export const AppSidebar = () => {
-  const {open} = useSidebar();
+  const { open } = useSidebar();
+  const { userDetail, setUserDetail } = useContext(UserDetailContext);
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader>
-        <div className="flex items-center gap-2">
-          <Image
-            src="/logo.svg"
-            alt="Agent Builder Logo"
-            width={35}
-            height={35}
+      <SidebarHeader className="mt-2">
+        <div className="flex justify-between items-center">
+          <div
+            className={`flex items-center gap-2 ${
+              !open && "group-hover:hidden"
+            }`}
+          >
+            <Image
+              src="/logo.svg"
+              alt="Agent Builder Logo"
+              width={35}
+              height={35}
+              className="size-8"
+            />
+            {open && <span className="text-xl font-semibold">AgentEngine</span>}
+          </div>
+          <SidebarTrigger
+            className={`size-8 flex items-center justify-center rounded-md cursor-w-resize ${
+              !open && "hidden group-hover:flex"
+            }`}
           />
-          {
-            open && <span className="text-lg font-semibold">AgentEngine</span>
-          }
         </div>
       </SidebarHeader>
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
@@ -76,7 +92,7 @@ export const AppSidebar = () => {
             <SidebarMenu>
               {MenuItems.map((item, idx) => (
                 <SidebarMenuItem key={idx}>
-                  <SidebarMenuButton asChild size={open ? 'lg' : 'default'}>
+                  <SidebarMenuButton asChild size={open ? "lg" : "default"}>
                     <Link href={item.href}>
                       <item.icon />
                       <span>{item.title}</span>
@@ -88,8 +104,23 @@ export const AppSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <SidebarTrigger />
+      <SidebarFooter className="mb-2">
+        <div className="flex items-center gap-2">
+          {open ? (
+            <Gem className="size-5" />
+          ) : (
+            <Button variant="ghost" size="icon" className="cursor-pointer">
+              <Gem className="size-5" />
+            </Button>
+          )}
+          {open && (
+            <h2>
+              Remaining Credits:{" "}
+              <span className="font-semibold">{userDetail?.token}</span>
+            </h2>
+          )}
+        </div>
+        {open && <Button className="cursor-pointer">Upgrade to Pro</Button>}
       </SidebarFooter>
     </Sidebar>
   );
