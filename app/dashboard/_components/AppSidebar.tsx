@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useContext } from "react";
 
 const MenuItems = [
@@ -37,28 +38,29 @@ const MenuItems = [
   {
     title: "AI Agents",
     icon: Bot,
-    href: "#",
+    href: "/agents",
   },
   {
     title: "Data",
     icon: Database,
-    href: "#",
+    href: "/data",
   },
   {
     title: "Pricing",
     icon: WalletCards,
-    href: "#",
+    href: "/pricing",
   },
   {
     title: "Profile",
     icon: User2Icon,
-    href: "#",
+    href: "/profile",
   },
 ];
 
 export const AppSidebar = () => {
   const { open } = useSidebar();
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
+  const path = usePathname();
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="mt-2">
@@ -92,7 +94,7 @@ export const AppSidebar = () => {
             <SidebarMenu>
               {MenuItems.map((item, idx) => (
                 <SidebarMenuItem key={idx}>
-                  <SidebarMenuButton asChild size={open ? "lg" : "default"}>
+                  <SidebarMenuButton isActive={path === item.href} asChild size={open ? "lg" : "default"}>
                     <Link href={item.href}>
                       <item.icon />
                       <span>{item.title}</span>
