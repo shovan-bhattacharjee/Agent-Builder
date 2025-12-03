@@ -5,7 +5,7 @@ import { CircleUserRound  } from "lucide-react";
 const AppHeader = () => {
     const {isLoaded} = useUser()
   return (
-    <div className="w-full p-4 shadow-xs flex items-center justify-end bg-sidebar border-b">
+    <div className="p-4 shadow-xs flex items-center bg-sidebar border-b sticky top-0 w-full z-10 justify-end">
         {
             !isLoaded && <CircleUserRound className="size-7" />
         }

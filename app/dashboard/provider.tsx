@@ -6,7 +6,7 @@ export const DashboardProvider = ({ children }: any) => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <div className="w-full">
+      <div className="w-screen">
         <AppHeader />
         {children}
       </div>
