@@ -8,7 +8,7 @@ export const DashboardProvider = ({ children }: any) => {
       <AppSidebar />
       <div className="w-screen">
         <AppHeader />
-        {children}
+        <div className="container mx-auto px-10">{children}</div>
       </div>
     </SidebarProvider>
   );

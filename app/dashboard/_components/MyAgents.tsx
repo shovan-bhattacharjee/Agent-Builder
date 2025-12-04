@@ -31,7 +31,7 @@ const MyAgents = () => {
   }, [userDetail]);
 
   return (
-    <div>
+    <div className="p-3">
       <h1 className="text-2xl font-bold mb-4">My Agents</h1>
       {agents?.length === 0 ? (
         <p>No agents found. Create one to get started!</p>
